@@ -1,7 +1,7 @@
 #include "HighscoresScene.h"
 
-void HighscoresScene::Start() {
-	Scene::Start(); //Parent function
+void HighscoresScene::Start(SDL_Renderer* rend) {
+	Scene::Start(rend); //Parent function
 }
 
 void HighscoresScene::Update(float dt) {

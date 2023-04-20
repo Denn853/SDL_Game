@@ -8,6 +8,7 @@
 class GameObject {
 public:
 	GameObject(SDL_Renderer* renderer);
+	~GameObject();
 
 	void Update(float dt);
 	void Render(SDL_Renderer* renderer);

@@ -45,7 +45,8 @@ void GameEngine::Update() {
 	gameScenes["Gameplay"] = new GameplayScene();
 	gameScenes["Highscores"] = new HighscoresScene();
 
-	Scene* currentScene = gameScenes["Main Menu"];
+	Scene* currentScene = gameScenes["Gameplay"];
+	currentScene->Start(renderer);
 
 	while (!IM.GetQuit()) {
 		
@@ -71,7 +72,7 @@ void GameEngine::Update() {
 			if (currentScene->IsFinished()) {
 				currentScene->Exit();
 				currentScene = gameScenes[currentScene->GetTargetScene()];
-				currentScene->Start();
+				currentScene->Start(renderer);
 			}
 
 			dt -= frameTime;
