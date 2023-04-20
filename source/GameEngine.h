@@ -5,6 +5,9 @@
 
 #include "GameObject.h"
 #include "InputManager.h"
+#include "MenuScene.h"
+#include "GameplayScene.h"
+#include "HighscoresScene.h"
 
 class GameEngine {
 public:
