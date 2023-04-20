@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "GameObject.h"
+#include "InputManager.h"
 
 class GameEngine {
 public:

@@ -32,33 +32,41 @@ void GameEngine::InitWindowAndRenderer(int windowWidth, int windowHeight) {
 
 void GameEngine::Update() {
 	GameObject object(renderer);
-	bool quitGame = false;
 
-	while (!quitGame) {
-		//--------UPDATE INPUT
-		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0)
-		{
-			if (e.type == SDL_QUIT) {
-				quitGame = true;
+	float dt = 0.0f;
+	float lastTime = (double)SDL_GetPerformanceCounter() / (double)SDL_GetPerformanceFrequency();
+	
+	const int FPS = 60;
+	const float frameTime = 1.0f / (float)FPS;
+
+
+	while (!IM.GetQuit()) {
+		
+		float currentTime = (double)SDL_GetPerformanceCounter() / (double)SDL_GetPerformanceFrequency();
+		dt += currentTime - lastTime;
+		lastTime = currentTime;
+
+		if (dt > frameTime) {
+
+			//UPDATE INPUT
+			IM.Listen();
+
+			//UPDATE LOGIC
+			object.Update(dt);
+			std::cout << dt << std::endl;
+
+			//RENDER
+			if (IM.GetKey(SDLK_SPACE, DOWN)) {
+				SDL_SetRenderDrawColor(renderer, rand() % 255, rand() % 255, rand() % 255, 0xFF); //background color
 			}
+			//SDL_SetRenderDrawColor(renderer, 0xAA, 0x6f, 0xFF, 0xFF); //background color
+
+			SDL_RenderClear(renderer);
+			object.Render(renderer);
+			SDL_RenderPresent(renderer);
+
+			dt -= frameTime;
 		}
-
-		//--------UPDATE LOGIC
-		object.Update(0.f);
-
-		//--------RENDER
-		//Green 0x6F, 0xFF, 0xA6
-		//Purple 0x6F, 0xFF, 0xA6
-		SDL_SetRenderDrawColor(renderer, 0xAA, 0x6f, 0xFF, 0xFF); //background color
-		//SDL_SetRenderDrawColor(renderer, rand() % 255, rand() % 255, rand() % 255, 0xFF); //background random color
-
-		SDL_RenderClear(renderer);
-
-		//--------RENDER OBJECTS
-		//SDL_RenderCopyEx(...)
-		object.Render(renderer);
-		SDL_RenderPresent(renderer);
 	}
 }
 
