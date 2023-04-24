@@ -12,7 +12,7 @@ public:
 
 private:
 
-	void UpdateMovement();
+	void UpdateMovement(float dt);
 
 	Vector2 velocity; 
 	float angularVelocity;
