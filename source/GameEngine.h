@@ -3,7 +3,6 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "GameObject.h"
 #include "InputManager.h"
 #include "MenuScene.h"
 #include "GameplayScene.h"

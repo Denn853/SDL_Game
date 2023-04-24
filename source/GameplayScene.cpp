@@ -2,7 +2,7 @@
 
 void GameplayScene::Start(SDL_Renderer* rend) {
 	Scene::Start(rend); //Parent function
-	objects.push_back(new GameObject(rend));
+	objects.push_back(new Spaceship(rend, Vector2(100.f, 100.f), 0.0f, Vector2(1.f, 1.f)));
 }
 
 void GameplayScene::Update(float dt) {
