@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "InputManager.h"
 
 class MenuScene : public Scene {
 public:

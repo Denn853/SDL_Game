@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 #include "GameObject.h"
+#include "InputManager.h"
 
 class Scene {
 public:
