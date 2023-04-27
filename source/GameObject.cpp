@@ -1,6 +1,8 @@
 #include "GameObject.h"
 
-GameObject::GameObject(SDL_Renderer* renderer) {
+GameObject::GameObject(SDL_Renderer* renderer, int w, int h)
+	: width(w), height(h) 
+{
 	position = Vector2();
 	rotation = 0.f;
 	scale = Vector2(1.f, 1.f);
@@ -25,25 +27,55 @@ GameObject::~GameObject() {
 }
 
 void GameObject::Update(float dt) {
-
+	UpdateMovement(dt);
+	ClampPosition();
 }
 
-void GameObject::Render(SDL_Renderer* renderer) {
+void GameObject::ClampPosition() {
 
-	position = Vector2(100.0f, 100.0f);
-	rotation += 1.0f;
+	float scaleWidth = (float)width * scale.x;
+	float scaleHeight = (float)height * scale.y;
 
-	SDL_Rect source{ 0, 0,	//Position
-					31, 38	//Size
-	};
+	int biggestAxis = scaleWidth > scaleHeight ? scaleWidth : scaleHeight;
 
-	SDL_Rect destination{ 
-			position.x - (source.w * scale.x) / 2, 
-			position.y - (source.h * scale.y) / 2, 
-			
-			source.w* scale.x, 
-			source.h* scale.y
-	};
+	//RIGHT
+	if (position.x > GAME_WIDTH + biggestAxis) {
+		position.x -= (GAME_WIDTH + biggestAxis * 2);
+	}
 
-	SDL_RenderCopyEx(renderer, texture, &source, &destination, rotation, NULL, SDL_FLIP_NONE);
+	//LEFT
+	if (position.x < 0.0f - biggestAxis) {
+		position.x += (GAME_WIDTH + biggestAxis * 2);
+	}
+
+	//DOWN
+	if (position.y > GAME_HEIGHT + biggestAxis) {
+		position.y -= (GAME_HEIGHT + biggestAxis * 2);
+	}
+
+	//UP
+	if (position.y < 0.0f - biggestAxis) {
+		position.y += (GAME_HEIGHT + biggestAxis * 2);
+	}
+}
+
+void GameObject::Render(SDL_Renderer* rend) {
+
+	SDL_Rect source;
+	source.x = 0;
+	source.y = 0;
+	source.w = width;
+	source.h = height;
+
+	SDL_Rect dest;
+	dest.x = position.x - (int)((float)source.w * scale.x / 2.0f);
+	dest.y = position.y - (int)((float)source.h * scale.y / 2.0f);
+	dest.w = (float)source.w * scale.x;
+	dest.h = (float)source.h * scale.x;
+
+	SDL_RenderCopyEx(rend, texture,
+		&source, &dest,
+		90.0f + rotation,
+		NULL,				//Punt de rotació: NULL = center
+		SDL_FLIP_NONE);		//Don't flip image
 }

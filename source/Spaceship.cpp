@@ -1,7 +1,7 @@
 #include "Spaceship.h"
 
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl)
-	: GameObject(renderer) {
+	: GameObject(renderer, 31, 39) {
 	position = pos;
 	rotation = rot;
 	scale = scl;
@@ -12,16 +12,11 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 	acceleration = Vector2();
 	angularAcceleration = 0.0f;
 
-	linearDrag = 0.05f;
-	angularDrag = 0.1f;
+	linearDrag = 1.2f;
+	angularDrag = 6.0f;
 
-	accelerationFactor = 600.0f;			//Px/sec^2
-	angularAccelerationFactor = 140000.0f;	//Deg(graus)/sec^2
-}
-
-void Spaceship::Update(float dt) {
-	UpdateMovement(dt);
-	ClampPosition();
+	accelerationFactor = 500.0f;			//Px/sec^2
+	angularAccelerationFactor = 1000.0f * 180.0f;	//Deg(graus)/sec^2
 }
 
 void Spaceship::UpdateMovement(float dt) {
@@ -56,53 +51,10 @@ void Spaceship::UpdateMovement(float dt) {
 	angularVelocity = angularVelocity + angularAcceleration * dt;
 
 	//DRAG
-	velocity = velocity * (1.0f - linearDrag);
-	angularVelocity = angularVelocity * (1.0f - angularDrag);
+	velocity = velocity * (1.0f - linearDrag * dt);
+	angularVelocity = angularVelocity * (1.0f - angularDrag * dt);
 
 	//UPDATE POSITION AND ROTATION
 	position = position + (velocity * dt);   //Position = position + (velocity * time)
 	rotation = rotation + (angularVelocity * dt);	//Rotation = rotation + (angularVelocity * time)
-}
-
-void Spaceship::ClampPosition() {
-	//RIGHT
-	if (position.x > GAME_WIDTH) {
-		position.x -= GAME_WIDTH;
-	}
-
-	//LEFT
-	if (position.x < 0.0f) {
-		position.x += GAME_WIDTH;
-	}
-
-	//DOWN
-	if (position.y > GAME_HEIGHT) {
-		position.y -= GAME_HEIGHT;
-	}
-
-	//UP
-	if (position.y < 0.0f) {
-		position.y += GAME_HEIGHT;
-	}
-}
-
-void Spaceship::Render(SDL_Renderer* rend) {
-
-	SDL_Rect source;
-	source.x = 0;
-	source.y = 0;
-	source.w = 31;
-	source.h = 39;
-
-	SDL_Rect dest;
-	dest.x = position.x - (int)((float)source.w * scale.x / 2.0f);
-	dest.y = position.y - (int)((float)source.h * scale.y / 2.0f);
-	dest.w = (float)source.w * scale.x;
-	dest.h = (float)source.h * scale.x;
-
-	SDL_RenderCopyEx(rend, texture,
-					&source, &dest, 
-					90.0f + rotation, 
-					NULL,				//Punt de rotació: NULL = center
-					SDL_FLIP_NONE);		//Don't flip image
 }
