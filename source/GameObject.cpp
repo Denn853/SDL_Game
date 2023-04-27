@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(SDL_Renderer* renderer, int w, int h)
-	: width(w), height(h) 
+GameObject::GameObject(SDL_Renderer* renderer, int w, int h, Vector2 pad)
+	: width(w), height(h), padding(pad)
 {
 	position = Vector2();
 	rotation = 0.f;
@@ -59,11 +59,26 @@ void GameObject::ClampPosition() {
 	}
 }
 
+void GameObject::UpdateMovement(float dt) {
+
+	//UPDATE VELOCITY AND ANGULAR_VELOCITY
+	velocity = velocity + acceleration * dt;
+	angularVelocity = angularVelocity + angularAcceleration * dt;
+
+	//DRAG
+	velocity = velocity * (1.0f - linearDrag * dt);
+	angularVelocity = angularVelocity * (1.0f - angularDrag * dt);
+
+	//UPDATE POSITION AND ROTATION
+	position = position + (velocity * dt);   //Position = position + (velocity * time)
+	rotation = rotation + (angularVelocity * dt);	//Rotation = rotation + (angularVelocity * time)
+}
+
 void GameObject::Render(SDL_Renderer* rend) {
 
 	SDL_Rect source;
-	source.x = 0;
-	source.y = 0;
+	source.x = padding.x;
+	source.y = padding.y ;
 	source.w = width;
 	source.h = height;
 

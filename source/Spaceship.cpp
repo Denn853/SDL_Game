@@ -1,7 +1,9 @@
 #include "Spaceship.h"
 
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl)
-	: GameObject(renderer, 31, 39) {
+	: GameObject(renderer, 31, 39, Vector2(0, 0)) {
+//	: GameObject(renderer, 40, 40, Vector2(40, 0)) {   -- ASTEROID
+
 	position = pos;
 	rotation = rot;
 	scale = scl;
@@ -22,7 +24,6 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 void Spaceship::UpdateMovement(float dt) {
 
 	//MOVEMENT
-
 	acceleration = Vector2();
 
 	if (IM.GetKey(SDLK_UP, DOWN) || IM.GetKey(SDLK_UP, HOLD)) {
@@ -36,7 +37,6 @@ void Spaceship::UpdateMovement(float dt) {
 	}
 
 	//ROTATION
-
 	angularAcceleration = 0;
 
 	if (IM.GetKey(SDLK_RIGHT, DOWN) || IM.GetKey(SDLK_RIGHT, HOLD)) {
@@ -46,15 +46,6 @@ void Spaceship::UpdateMovement(float dt) {
 		angularAcceleration = dt * -angularAccelerationFactor; //Units: º/s
 	}
 
-	//UPDATE VELOCITY AND ANGULAR_VELOCITY
-	velocity = velocity + acceleration * dt;
-	angularVelocity = angularVelocity + angularAcceleration * dt;
+	GameObject::UpdateMovement(dt);
 
-	//DRAG
-	velocity = velocity * (1.0f - linearDrag * dt);
-	angularVelocity = angularVelocity * (1.0f - angularDrag * dt);
-
-	//UPDATE POSITION AND ROTATION
-	position = position + (velocity * dt);   //Position = position + (velocity * time)
-	rotation = rotation + (angularVelocity * dt);	//Rotation = rotation + (angularVelocity * time)
 }
