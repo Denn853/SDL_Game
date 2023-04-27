@@ -6,7 +6,7 @@ public:
 	float y;
 
 	Vector2()
-		: x(0), y(0) {}
+		: x(0.0f), y(0.0f) {}
 
 	Vector2(float x, float y)
 		: x(x), y(y) {}

@@ -17,6 +17,9 @@ private:
 	Vector2 velocity; 
 	float angularVelocity;
 	
+	Vector2 acceleration;
+	float angularAcceleration;
+
 	float linearDrag;
 	float angularDrag;
 

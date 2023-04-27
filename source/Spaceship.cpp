@@ -5,6 +5,18 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 	position = pos;
 	rotation = rot;
 	scale = scl;
+
+	velocity = Vector2();
+	angularVelocity = 0.0f;
+
+	acceleration = Vector2();
+	angularAcceleration = 0.0f;
+
+	linearDrag = 0.05f;
+	angularDrag = 0.1f;
+
+	accelerationFactor = 600.0f;			//Px/sec^2
+	angularAccelerationFactor = 140000.0f;	//Deg(graus)/sec^2
 }
 
 void Spaceship::Update(float dt) {
@@ -14,27 +26,41 @@ void Spaceship::Update(float dt) {
 void Spaceship::UpdateMovement(float dt) {
 
 	//MOVEMENT
+
+	acceleration = Vector2();
+
 	if (IM.GetKey(SDLK_UP, DOWN) || IM.GetKey(SDLK_UP, HOLD)) {
 		
 		Vector2 dir;
-		float rotationInRadians = rotation * (M_PI / 180.f);
+		float rotationInRadians = rotation * (M_PI / 180.f); //Conversió de graus a radiants
 		dir.x = cos(rotationInRadians);
 		dir.y = sin(rotationInRadians);
 
-		velocity = velocity + (dir * dt * 100.0f); //Units: pixels/s
+		acceleration = dir * accelerationFactor;
 	}
-	
-	Vector2 velocityDT = velocity * dt;
-	position = position + velocityDT;
 
 	//ROTATION
+
+	angularAcceleration = 0;
+
 	if (IM.GetKey(SDLK_RIGHT, DOWN) || IM.GetKey(SDLK_RIGHT, HOLD)) {
-		rotation += dt * 100; //Units: º/s
+		angularAcceleration = dt * angularAccelerationFactor; //Units: º/s
 	}
-	else if (IM.GetKey(SDLK_LEFT, DOWN) || IM.GetKey(SDLK_LEFT, HOLD)) {
-		rotation -= dt * 100; //Units: º/s
+	if (IM.GetKey(SDLK_LEFT, DOWN) || IM.GetKey(SDLK_LEFT, HOLD)) {
+		angularAcceleration = dt * -angularAccelerationFactor; //Units: º/s
 	}
 
+	//UPDATE VELOCITY AND ANGULAR_VELOCITY
+	velocity = velocity + acceleration * dt;
+	angularVelocity = angularVelocity + angularAcceleration * dt;
+
+	//DRAG
+	velocity = velocity * (1.0f - linearDrag);
+	angularVelocity = angularVelocity * (1.0f - angularDrag);
+
+	//UPDATE POSITION AND ROTATION
+	position = position + (velocity * dt);   //Position = position + (velocity * time)
+	rotation = rotation + (angularVelocity * dt);	//Rotation = rotation + (angularVelocity * time)
 }
 
 void Spaceship::Render(SDL_Renderer* rend) {
