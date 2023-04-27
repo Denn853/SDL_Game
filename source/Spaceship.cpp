@@ -21,6 +21,7 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 
 void Spaceship::Update(float dt) {
 	UpdateMovement(dt);
+	ClampPosition();
 }
 
 void Spaceship::UpdateMovement(float dt) {
@@ -61,6 +62,28 @@ void Spaceship::UpdateMovement(float dt) {
 	//UPDATE POSITION AND ROTATION
 	position = position + (velocity * dt);   //Position = position + (velocity * time)
 	rotation = rotation + (angularVelocity * dt);	//Rotation = rotation + (angularVelocity * time)
+}
+
+void Spaceship::ClampPosition() {
+	//RIGHT
+	if (position.x > GAME_WIDTH) {
+		position.x -= GAME_WIDTH;
+	}
+
+	//LEFT
+	if (position.x < 0.0f) {
+		position.x += GAME_WIDTH;
+	}
+
+	//DOWN
+	if (position.y > GAME_HEIGHT) {
+		position.y -= GAME_HEIGHT;
+	}
+
+	//UP
+	if (position.y < 0.0f) {
+		position.y += GAME_HEIGHT;
+	}
 }
 
 void Spaceship::Render(SDL_Renderer* rend) {
