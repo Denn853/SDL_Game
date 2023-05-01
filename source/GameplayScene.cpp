@@ -3,7 +3,10 @@
 void GameplayScene::Start(SDL_Renderer* rend) {
 	Scene::Start(rend); //Parent function
 	objects.push_back(new Spaceship(rend, Vector2(100.f, 100.f), 0.0f, Vector2(1.f, 1.f)));
+	objects.push_back(new Asteroids(rend, Vector2(400.f + rand(), 400.f + rand()), 0.f + rand(), Vector2(1.f, 1.f)));
 }
+//Rand Formule
+//value = min + rand() % (max - min + 1)
 
 void GameplayScene::Update(float dt) {
 	Scene::Update(dt);
