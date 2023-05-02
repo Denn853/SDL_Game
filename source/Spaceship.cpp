@@ -2,7 +2,6 @@
 
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl)
 	: GameObject(renderer, 31, 39, Vector2(0, 0)) {
-//	: GameObject(renderer, 40, 40, Vector2(40, 0)) {   -- ASTEROID
 
 	position = pos;
 	rotation = rot;

@@ -2,7 +2,7 @@
 
 #include "Scene.h"
 #include "Spaceship.h"
-#include "Asteroids.h"
+#include "Asteroid.h"
 
 class GameplayScene : public Scene {
 public:

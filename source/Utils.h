@@ -1,4 +1,55 @@
 #pragma once
 
+#include <stdlib.h>
+
+#include "Vector2.h"
+
 #define GAME_WIDTH 500
 #define GAME_HEIGHT 500
+
+inline float CalculateRadius(int width, int height) {
+
+	float a = ((float)GAME_WIDTH / 2.f);
+	a *= a;	//power of two
+
+	float b = ((float)GAME_HEIGHT / 2.f);
+	b *= b;	//power of two
+
+	float h = sqrt(a + b); // THIS IS THE RADIUS
+
+	return h;
+}
+
+inline Vector2 CalculatePositionInRadius(float r) {
+
+	Vector2 perimeterPosition;
+
+	float angle = rand() % 360;
+	angle *= M_PI / 180.0f; //Conversió de graus a radiants
+
+	perimeterPosition.x = cos(angle) * r;
+	perimeterPosition.y = sin(angle) * r;
+
+	return perimeterPosition;
+}
+
+inline Vector2 ClampPositionToRectangle(Vector2 pos, float halfWidth, float halfHeight) {
+
+	if (pos.y < halfHeight) {	// TOP CLAMP
+		pos.y = halfHeight;
+	}
+
+	if (pos.y > -halfHeight) {	// BOTTOM CLAMP
+		pos.y = -halfHeight;
+	}
+
+	if (pos.x < -halfWidth) {	// LEFT CLAMP
+		pos.x = -halfWidth;
+	}
+
+	if (pos.x > halfWidth) {	// RIGHT CLAMP
+		pos.x = halfWidth;
+	}
+
+	return pos;
+}

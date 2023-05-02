@@ -3,9 +3,9 @@
 #include "GameObject.h"
 #include "InputManager.h"
 
-class Asteroids : public GameObject {
+class Asteroid : public GameObject {
 public:
-	Asteroids(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl);
+	Asteroid(SDL_Renderer* renderer);
 
 private:
 	//GameObject BigAsteroids[3];
@@ -22,6 +22,5 @@ private:
 	//GameObject(renderer, 19, 21, Vector2(128, 22))
 	//GameObject(renderer, 21, 18, Vector2(166, 105))
 
-	void UpdateMovement(float dt) override;
 
 };
