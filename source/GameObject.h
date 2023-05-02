@@ -11,19 +11,28 @@ public:
 	GameObject(SDL_Renderer* renderer, int w, int h, Vector2 pad);
 	~GameObject();
 
-	void virtual Update(float dt);
-	void virtual Render(SDL_Renderer* renderer);
+	virtual void Update(float dt);
+	virtual void Render(SDL_Renderer* renderer);
+
+	virtual void Destroy() { pendingDestroy = true; }
+	bool IsPendingDestroy() { return pendingDestroy; }
 
 protected:
 
+	// -------- FLAGS
+	bool pendingDestroy = false;
+
+	// -------- TRANSFORM
 	Vector2 position;
 	float rotation;
 	Vector2 scale;
 
+	// -------- RENDER INFORMATION
 	SDL_Texture* texture;
 	int width, height;
 	Vector2 padding;
 
+	// -------- PHYSICS MOVEMENT
 	void ClampPosition();
 	virtual void UpdateMovement(float dt);
 

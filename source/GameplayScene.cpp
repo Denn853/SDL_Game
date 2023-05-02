@@ -12,8 +12,10 @@ void GameplayScene::Update(float dt) {
 	Scene::Update(dt);
 
 	if (IM.GetKey(SDLK_SPACE, DOWN)) {
-		finished = true;
-		targetScene = "Main Menu";
+		/*finished = true;
+		targetScene = "Main Menu";*/
+		
+		objects[0]->Destroy();
 	}
 }
 
