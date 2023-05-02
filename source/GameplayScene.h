@@ -16,4 +16,7 @@ public:
 
 	void Exit() override;
 
+private:
+	Spaceship* spaceship;
+
 };
