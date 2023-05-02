@@ -35,11 +35,11 @@ inline Vector2 CalculatePositionInRadius(float r) {
 
 inline Vector2 ClampPositionToRectangle(Vector2 pos, float halfWidth, float halfHeight) {
 
-	if (pos.y < halfHeight) {	// TOP CLAMP
+	if (pos.y > halfHeight) {	// TOP CLAMP
 		pos.y = halfHeight;
 	}
 
-	if (pos.y > -halfHeight) {	// BOTTOM CLAMP
+	if (pos.y < -halfHeight) {	// BOTTOM CLAMP
 		pos.y = -halfHeight;
 	}
 
