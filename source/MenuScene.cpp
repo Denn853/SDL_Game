@@ -5,7 +5,7 @@ void MenuScene::Start(SDL_Renderer* rend) {
 	uiObjects.push_back(
 		new UIImage(
 			rend,
-			Vector2(100, 100), 0.0f, Vector2(1, 1),
+			Vector2(250, 250), 0.0f, Vector2(0.8, 0.8), //pos, rot, scale
 			"resources/CatAttack.png",
 			582, 639, Vector2(0, 0)));
 }

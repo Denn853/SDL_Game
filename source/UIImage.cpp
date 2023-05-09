@@ -23,7 +23,7 @@ void UIImage::Render(SDL_Renderer* rend) {
 void UIImage::GenerateTexture(SDL_Renderer* rend) {
 
 	//Load the texture
-	SDL_Surface* surf = IMG_Load("resources/asteroids_spritesheet.png");
+	SDL_Surface* surf = IMG_Load(resourcePath.c_str());
 	if (surf == nullptr) {
 		std::cout << "Cannot load surface: " << SDL_GetError;
 	}
