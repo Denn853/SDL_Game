@@ -20,7 +20,9 @@ void MenuScene::Start(SDL_Renderer* rend) {
 void MenuScene::Update(float dt) {
 	Scene::Update(dt);
 
-	//IF (UIText* txt = dynamic_cast<UIText*>)
+	if (UIText* txt = dynamic_cast<UIText*>(uiObjects[1])) {
+		txt->ChangeText(std::to_string(dt));
+	}
 
 	if (IM.GetKey(SDLK_1, DOWN)) {
 		finished = true;
