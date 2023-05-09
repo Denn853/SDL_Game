@@ -5,13 +5,22 @@ void MenuScene::Start(SDL_Renderer* rend) {
 	uiObjects.push_back(
 		new UIImage(
 			rend,
-			Vector2(250, 250), 0.0f, Vector2(0.8, 0.8), //pos, rot, scale
+			Vector2(100, 100), 0.0f, Vector2(0.3, 0.3), //pos, rot, scale
 			"resources/CatAttack.png",
 			582, 639, Vector2(0, 0)));
+
+	uiObjects.push_back(
+		new UIText(
+			rend,
+			Vector2(250, 250), 0.0f, Vector2(1.f, 1.f),
+			"Vaporeon",
+			"resources/Hyperspace.ttf"));
 }
 
 void MenuScene::Update(float dt) {
 	Scene::Update(dt);
+
+	//IF (UIText* txt = dynamic_cast<UIText*>)
 
 	if (IM.GetKey(SDLK_1, DOWN)) {
 		finished = true;

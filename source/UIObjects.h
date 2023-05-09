@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
 #include <SDL.h>
-#include <string.h>
+#include <string>
 
 #include "Vector2.h"
 

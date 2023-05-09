@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "UIImage.h"
+#include "UIText.h"
 
 class MenuScene : public Scene {
 public:

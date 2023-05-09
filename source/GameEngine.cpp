@@ -11,6 +11,9 @@ void GameEngine::InitSDL() {
 	if (result < 0) {
 		std::cout << "SDL_Init ERROR: " << SDL_GetError() << std::endl;
 	}
+	if (TTF_Init() == -1) {
+		std::cout << "TTF_Init ERROR: " << SDL_GetError();
+	}
 }
 
 void GameEngine::InitWindowAndRenderer(int windowWidth, int windowHeight) {
