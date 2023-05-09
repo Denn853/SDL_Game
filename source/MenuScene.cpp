@@ -2,6 +2,12 @@
 
 void MenuScene::Start(SDL_Renderer* rend) {
 	Scene::Start(rend); //Parent function
+	uiObjects.push_back(
+		new UIImage(
+			rend,
+			Vector2(100, 100), 0.0f, Vector2(1, 1),
+			"resources/CatAttack.png",
+			582, 639, Vector2(0, 0)));
 }
 
 void MenuScene::Update(float dt) {

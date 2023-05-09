@@ -28,6 +28,7 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MenuScene.cpp" />
     <ClCompile Include="source\Spaceship.cpp" />
+    <ClCompile Include="source\UIImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Asteroid.h" />
@@ -39,6 +40,9 @@
     <ClInclude Include="source\MenuScene.h" />
     <ClInclude Include="source\Scene.h" />
     <ClInclude Include="source\Spaceship.h" />
+    <ClInclude Include="source\UIImage.h" />
+    <ClInclude Include="source\UIObject.h" />
+    <ClInclude Include="source\UIObjects.h" />
     <ClInclude Include="source\Utils.h" />
     <ClInclude Include="source\Vector2.h" />
   </ItemGroup>
