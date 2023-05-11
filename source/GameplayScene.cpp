@@ -46,15 +46,26 @@ void GameplayScene::Update(float dt) {
 			// -------- COLLISION WITH BULLETS
 			for (auto it2 = objects.begin(); it2 != objects.end() && !a->IsPendingDestroy(); it2++) {
 				if (Bullet* b = dynamic_cast<Bullet*>(*it2)) {
+					bool colliging = CheckCollision(
+						b->GetPosition(), b->GetRadius(),
+						a->GetPosition(), a->GetRadius() * 0.5f
+					);
 
+					if (colliging) {
+						a->Destroy();
+						b->Destroy();
+					}
 				}
 			}
 		}
 	}
 
+
 	if (spaceship != nullptr) {
 		if (spaceship->ShootBullet()) {
-			objects.push_back(new Bullet(renderer, spaceship->GetPosition(), spaceship->GetRotation(), 300.0f));
+			Vector2 offset = Vector2(cos(spaceship->GetRotation()), sin(spaceship->GetRotation())) * spaceship->GetRadius();
+			
+			objects.push_back(new Bullet(renderer, spaceship->GetPosition() + offset, spaceship->GetRotation() , 300.0f));
 		}
 	}
 }
