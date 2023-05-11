@@ -37,8 +37,8 @@ void GameplayScene::Update(float dt) {
 				if(colliding) {
 					spaceship->Destroy();
 					spaceship = nullptr;
-					//finished = true;
-					//targetScene = "Main Menu";
+					finished = true;
+					targetScene = "Main Menu";
 					a->Destroy();
 				}
 			}
