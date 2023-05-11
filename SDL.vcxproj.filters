@@ -60,6 +60,9 @@
     <ClCompile Include="source\UIText.cpp">
       <Filter>Source Files\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="source\Bullet.cpp">
+      <Filter>Source Files\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\GameEngine.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="source\UIText.h">
       <Filter>Header Files\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bullet.h">
+      <Filter>Header Files\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

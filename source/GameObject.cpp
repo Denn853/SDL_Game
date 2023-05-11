@@ -7,6 +7,8 @@ GameObject::GameObject(SDL_Renderer* renderer, int w, int h, Vector2 pad)
 	rotation = 0.f;
 	scale = Vector2(1.f, 1.f);
 
+	radius = CalculateRadius(w, h);
+
 	//Load the texture
 	SDL_Surface* surf = IMG_Load("resources/asteroids_spritesheet.png");
 	if (surf == nullptr) {

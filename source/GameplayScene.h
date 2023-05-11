@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Spaceship.h"
 #include "Asteroid.h"
+#include "Bullet.h"
 
 class GameplayScene : public Scene {
 public:
@@ -18,5 +19,7 @@ public:
 
 private:
 	Spaceship* spaceship;
+
+	SDL_Renderer* renderer; //Required for spawning
 
 };
