@@ -53,3 +53,13 @@ inline Vector2 ClampPositionToRectangle(Vector2 pos, float halfWidth, float half
 
 	return pos;
 }
+
+inline bool CheckCollision(Vector2 posA, float radiusA, Vector2 posB, float radiusB) {
+	Vector2 aToB = posB - posA; //Destí menys Origen
+	float distanceSquared = aToB.x * aToB.x + aToB.y * aToB.y;
+	
+	float squaredRadiusSum = radiusA + radiusB;
+	squaredRadiusSum *= squaredRadiusSum;
+
+	return distanceSquared < squaredRadiusSum;
+}

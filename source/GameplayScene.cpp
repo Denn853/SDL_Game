@@ -29,20 +29,26 @@ void GameplayScene::Update(float dt) {
 				// If asteroid collides with spaceship
 					//Destroy asterois
 					//Destroy spaceship
-				Vector2 sToA = a->GetPosition() - spaceship->GetPosition();
-				float distanceSquared = sToA.x * sToA.x + sToA.y * sToA.y;
-				float squaredRadiusSum = a->GetRadius() + spaceship->GetRadius();	//playerRadius + asteroidsRadius
-				squaredRadiusSum *= squaredRadiusSum;
+				bool colliding = CheckCollision(
+					spaceship->GetPosition(), spaceship->GetRadius() * 0.5f,
+					a->GetPosition(), a->GetRadius() * 0.5f
+				);
 
-				if (distanceSquared < squaredRadiusSum) {
+				if(colliding) {
 					spaceship->Destroy();
 					spaceship = nullptr;
+					//finished = true;
+					//targetScene = "Main Menu";
 					a->Destroy();
 				}
 			}
 
 			// -------- COLLISION WITH BULLETS
+			for (auto it2 = objects.begin(); it2 != objects.end() && !a->IsPendingDestroy(); it2++) {
+				if (Bullet* b = dynamic_cast<Bullet*>(*it2)) {
 
+				}
+			}
 		}
 	}
 
