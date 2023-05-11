@@ -24,13 +24,14 @@ void GameplayScene::Update(float dt) {
 		// it = punter a object
 		if (Asteroid* a = dynamic_cast<Asteroid*>(*it)) {
 
+			// -------- COLLISION WITH SPACESHIP
 			if (spaceship != nullptr) {
 				// If asteroid collides with spaceship
 					//Destroy asterois
 					//Destroy spaceship
 				Vector2 sToA = a->GetPosition() - spaceship->GetPosition();
 				float distanceSquared = sToA.x * sToA.x + sToA.y * sToA.y;
-				float squaredRadiusSum = a->GetRadius() * a->GetRadius() + spaceship->GetRadius() * spaceship->GetRadius();	//playerRadius + asteroidsRadius
+				float squaredRadiusSum = a->GetRadius() + spaceship->GetRadius();	//playerRadius + asteroidsRadius
 				squaredRadiusSum *= squaredRadiusSum;
 
 				if (distanceSquared < squaredRadiusSum) {
@@ -38,8 +39,9 @@ void GameplayScene::Update(float dt) {
 					spaceship = nullptr;
 					a->Destroy();
 				}
-
 			}
+
+			// -------- COLLISION WITH BULLETS
 
 		}
 	}

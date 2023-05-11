@@ -9,10 +9,10 @@
 
 inline float CalculateRadius(int width, int height) {
 
-	float a = ((float)GAME_WIDTH / 2.f);
+	float a = ((float)width / 2.f);
 	a *= a;	//power of two
 
-	float b = ((float)GAME_HEIGHT / 2.f);
+	float b = ((float)height / 2.f);
 	b *= b;	//power of two
 
 	float h = sqrt(a + b); // THIS IS THE RADIUS
