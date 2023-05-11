@@ -63,7 +63,10 @@ void GameplayScene::Update(float dt) {
 
 	if (spaceship != nullptr) {
 		if (spaceship->ShootBullet()) {
-			Vector2 offset = Vector2(cos(spaceship->GetRotation()), sin(spaceship->GetRotation())) * spaceship->GetRadius();
+			Vector2 offset = Vector2(
+				cos(spaceship->GetRotation() * M_PI / 180.f), 
+				sin(spaceship->GetRotation() * M_PI / 180.f)
+			) * spaceship->GetRadius();
 			
 			objects.push_back(new Bullet(renderer, spaceship->GetPosition() + offset, spaceship->GetRotation() , 300.0f));
 		}
