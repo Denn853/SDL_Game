@@ -10,7 +10,10 @@ public:
 	UIObjects(SDL_Renderer* rend, Vector2 pos, float rot, Vector2 scl)
 		: position(pos), rotation(rot), scale(scl) {
 	}
-
+	~UIObjects() { 
+		SDL_DestroyTexture(texture); 
+	}
+	
 	virtual void Update(float dt) = 0;
 	virtual void Render(SDL_Renderer* rend) = 0;
 

@@ -2,15 +2,17 @@
 
 void GameplayScene::Start(SDL_Renderer* rend) {
 	
+	currentState = GameplayState::ALIVE;
+	currentStateTime = 0.0f;
+	lives = 3;
+	
 	Scene::Start(rend); //Parent function
-
 	renderer = rend;
 
-	spaceship = new Spaceship(rend, Vector2(100.f, 100.f), 0.0f, Vector2(1.f, 1.f));
-	objects.push_back(spaceship);
-
-	for (int i = 0; i < 10; i++) {
-		objects.push_back(new Asteroid(rend));
+	RespawnSpaceship();
+	int asteroidsSpawn = 10;
+	for (int i = 0; i < asteroidsSpawn; i++) {
+		objects.push_back(new BigAsteroid(rend));
 	}
 }
 //Rand Formule
@@ -18,14 +20,37 @@ void GameplayScene::Start(SDL_Renderer* rend) {
 
 void GameplayScene::Update(float dt) {
 	
+	currentStateTime += dt;
+
+	int objectsSize = objects.size();
+	for (int i = 0; i < objectsSize; i++) {
+		if (BigAsteroid* big = dynamic_cast<BigAsteroid*>(objects[i])) {
+			if (big->IsPendingDestroy()) {
+				objects.push_back(new MediumAsteroid(renderer, big->GetPosition()));
+				objects.push_back(new MediumAsteroid(renderer, big->GetPosition()));
+			}
+		}
+
+		if (MediumAsteroid* big = dynamic_cast<MediumAsteroid*>(objects[i])) {
+			if (big->IsPendingDestroy()) {
+				objects.push_back(new SmallAsteroid(renderer, big->GetPosition()));
+				objects.push_back(new SmallAsteroid(renderer, big->GetPosition()));
+			}
+		}
+	}
+
 	Scene::Update(dt);
 
+	int asteroidsLeft = 0;
+
+	// -------- COLLISIONS
 	for (auto it = objects.begin(); it != objects.end(); it++) {
 		// it = punter a object
 		if (Asteroid* a = dynamic_cast<Asteroid*>(*it)) {
-
+			asteroidsLeft++;
+			
 			// -------- COLLISION WITH SPACESHIP
-			if (spaceship != nullptr) {
+			if (spaceship != nullptr && currentStateTime > stateTimeThreshold) {
 				// If asteroid collides with spaceship
 					//Destroy asterois
 					//Destroy spaceship
@@ -35,10 +60,7 @@ void GameplayScene::Update(float dt) {
 				);
 
 				if(colliding) {
-					spaceship->Destroy();
-					spaceship = nullptr;
-					finished = true;
-					targetScene = "Main Menu";
+					DesctroySpaceship();
 					a->Destroy();
 				}
 			}
@@ -71,17 +93,39 @@ void GameplayScene::Update(float dt) {
 			objects.push_back(new Bullet(renderer, spaceship->GetPosition() + offset, spaceship->GetRotation() , 300.0f));
 		}
 	}
-}
 
-void GameplayScene::Render(SDL_Renderer* rend) {
-	Scene::Render(rend);
-
-	std::cout << "Gameplay" << std::endl;
-}
-
-void GameplayScene::Exit() {
-	for (auto it = objects.begin(); it != objects.end(); it++) {
-		delete(*it);
+	if (currentState == GameplayState::DEAD && currentStateTime > stateTimeThreshold) {
+		if (lives != 0) {
+			RespawnSpaceship();
+		}
+		else {
+			finished = true;
+			targetScene = "Main Menu";
+		}
 	}
-	objects.clear();
+
+	if (asteroidsLeft == 0) {
+		for (int i = 0; i < 10; i++) {
+			objects.push_back(new BigAsteroid(renderer));
+		}
+	}
 }
+
+void GameplayScene::RespawnSpaceship() {
+	spaceship = new Spaceship(renderer, Vector2(GAME_WIDTH / 2, GAME_HEIGHT / 2), 0.0f, Vector2(1.f, 1.f));
+	objects.push_back(spaceship);
+
+	currentState = GameplayState::ALIVE;
+	currentStateTime = 0.0f;
+}
+
+void GameplayScene::DesctroySpaceship() {
+	spaceship->Destroy();
+	spaceship = nullptr;
+
+	currentState = GameplayState::DEAD;
+	currentStateTime = 0.0f;
+
+	lives--;
+}
+

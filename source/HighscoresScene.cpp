@@ -12,13 +12,3 @@ void HighscoresScene::Update(float dt) {
 		targetScene = "Main Menu";
 	}
 }
-
-void HighscoresScene::Render(SDL_Renderer* rend) {
-	Scene::Render(rend);
-
-	std::cout << "Highscores" << std::endl;
-}
-
-void HighscoresScene::Exit() {
-
-}

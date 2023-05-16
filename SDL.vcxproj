@@ -34,14 +34,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Asteroid.h" />
+    <ClInclude Include="source\BigAsteroid.h" />
     <ClInclude Include="source\Bullet.h" />
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\GameplayScene.h" />
     <ClInclude Include="source\HighscoresScene.h" />
     <ClInclude Include="source\InputManager.h" />
+    <ClInclude Include="source\MediumAsteroid.h" />
     <ClInclude Include="source\MenuScene.h" />
     <ClInclude Include="source\Scene.h" />
+    <ClInclude Include="source\SmallAsteroid.h" />
     <ClInclude Include="source\Spaceship.h" />
     <ClInclude Include="source\UIImage.h" />
     <ClInclude Include="source\UIObject.h" />

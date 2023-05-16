@@ -1,19 +1,17 @@
 #include "Asteroid.h"
 
-Asteroid::Asteroid(SDL_Renderer* renderer)
-	: GameObject(renderer, 39, 36, Vector2(41, 3)) {
-
-	float objectRadius = width > height ? width / 2 : height / 2;
+Asteroid::Asteroid(SDL_Renderer* rend)
+	: GameObject(rend, 97, 91, Vector2(156, 0)) {
 
 	// -------- CALCULATE RADIUS
-	float radius = CalculateRadius(GAME_WIDTH + objectRadius * 2.0f, GAME_HEIGHT + objectRadius * 2.0f);
+	float spawnRadius = CalculateRadius(GAME_WIDTH, GAME_HEIGHT);
 
 	// -------- CALCULATE POSITION IN SPHERE PERIMET ER WITH A GIVEN RADIUS (r)
-	Vector2 perimeterPosition = CalculatePositionInRadius(radius);
+	Vector2 perimeterPosition = CalculatePositionInRadius(spawnRadius);
 	
 	// -------- CLAMP TO RECTANGLE WITH WIDTH AND HEIGHT
-	float halfHeight = (float)GAME_HEIGHT / 2.f + (float)objectRadius;
-	float halfWidth = (float)GAME_WIDTH / 2.f + (float)objectRadius;
+	float halfHeight = (float)GAME_HEIGHT / 2.f + (float)radius;
+	float halfWidth = (float)GAME_WIDTH / 2.f + (float)radius;
 
 	perimeterPosition = ClampPositionToRectangle(perimeterPosition, halfWidth, halfHeight);
 
@@ -30,6 +28,6 @@ Asteroid::Asteroid(SDL_Renderer* renderer)
 	angularDrag = 0.0f;
 	linearDrag = 0.0f;
 	
-	velocity = CalculatePositionInRadius(100);
-	angularVelocity = 100 - (rand() % 201);
+	velocity = Vector2();
+	angularVelocity = 0.0f;
 }

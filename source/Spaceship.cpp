@@ -22,7 +22,7 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 	wantsToShoot = false;
 	canShoot = false;
 
-	maxShotTime = 1.0f;
+	maxShotTime = 0.5f;
 	lastShotTime = maxShotTime;
 }
 

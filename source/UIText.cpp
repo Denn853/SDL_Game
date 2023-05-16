@@ -17,7 +17,7 @@ void UIText::Render(SDL_Renderer* rend) {
 
 void UIText::GenerateTexture(SDL_Renderer* rend) {
 
-	int fontSize = 94;
+	int fontSize = 84;
 
 	TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
 	SDL_Color color{ 0x66, 0xFF, 0xFF, 0xFF };

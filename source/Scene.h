@@ -40,7 +40,18 @@ public:
 		}
 	}
 
-	virtual void Exit() = 0;
+	virtual void Exit() {
+		for (auto it = objects.begin(); it != objects.end(); it++) {
+			delete(*it);
+		}
+
+		for (auto it = uiObjects.begin(); it != uiObjects.end(); it++) {
+			delete(*it);
+		}
+
+		objects.clear();
+		uiObjects.clear();
+	}
 
 	bool IsFinished() { return finished; }
 	std::string GetTargetScene() { return targetScene; }
