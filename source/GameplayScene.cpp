@@ -14,6 +14,9 @@ void GameplayScene::Start(SDL_Renderer* rend) {
 	for (int i = 0; i < asteroidsSpawn; i++) {
 		objects.push_back(new BigAsteroid(rend));
 	}
+
+	RespawnEnemy();
+
 }
 //Rand Formule
 //value = min + rand() % (max - min + 1)
@@ -122,6 +125,24 @@ void GameplayScene::RespawnSpaceship() {
 void GameplayScene::DesctroySpaceship() {
 	spaceship->Destroy();
 	spaceship = nullptr;
+
+	currentState = GameplayState::DEAD;
+	currentStateTime = 0.0f;
+
+	lives--;
+}
+
+void GameplayScene::RespawnEnemy() {
+	enemy = new Enemy(renderer, Vector2(GAME_WIDTH / 2, GAME_HEIGHT / 2));
+	objects.push_back(enemy);
+
+	currentState = GameplayState::ALIVE;
+	currentStateTime = 0.0f;
+}
+
+void GameplayScene::DesctroyEnemy() {
+	enemy->Destroy();
+	enemy = nullptr;
 
 	currentState = GameplayState::DEAD;
 	currentStateTime = 0.0f;

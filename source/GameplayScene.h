@@ -6,6 +6,7 @@
 #include "MediumAsteroid.h"
 #include "SmallAsteroid.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 enum GameplayState { ALIVE, DEAD };
 
@@ -28,4 +29,8 @@ private:
 
 	void DesctroySpaceship();
 	void RespawnSpaceship();
+
+	Enemy* enemy;
+	void DesctroyEnemy();
+	void RespawnEnemy();
 };

@@ -6,6 +6,12 @@
 class Asteroid : public GameObject {
 public:
 	Asteroid(SDL_Renderer* rend);
+	int GetScore() { return score; }
+
+protected: 
+	int score;
+
+};
 
 	//GameObject BigAsteroids[3];
 	//GameObject(renderer, 97, 91, Vector2(156, 0))
@@ -20,4 +26,3 @@ public:
 	//GameObject(renderer, 19, 18, Vector2(128, 1))
 	//GameObject(renderer, 19, 21, Vector2(128, 22))
 	//GameObject(renderer, 21, 18, Vector2(166, 105))
-};
